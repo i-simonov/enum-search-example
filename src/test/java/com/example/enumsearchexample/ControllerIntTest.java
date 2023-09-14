@@ -1,6 +1,8 @@
 package com.example.enumsearchexample;
 
 
+import com.example.enumsearchexample.service.Answers;
+import com.example.enumsearchexample.controller.Controller;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,11 @@ public class ControllerIntTest {
     MockMvc mockMvc;
 
     @ParameterizedTest
-    @ValueSource(strings = { "hi", "bye", "how are you","blah-blah-blah" })
+    @ValueSource(strings = {"hi", "bye", "how are you", "blah-blah-blah"})
     public void getAnswerTest(String param) throws Exception {
 
-        mockMvc.perform(get("http://localhost:8080/api/v1/enum-search/"+param))
+        mockMvc.perform(get("http://localhost:8080/api/v1/enum-search/" + param))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString(AnswersService.Answer(param).toString())));
+                .andExpect(content().string(containsString(Answers.findAnswer(param).toString())));
     }
 }
